@@ -27,7 +27,8 @@ namespace mbed {
 
 SPI::spi_peripheral_s SPI::_peripherals[DEVICE_SPI_COUNT];
 
-SPI::spi_peripheral_s::spi_peripheral_s() : owner(NULL) {
+SPI::spi_peripheral_s::spi_peripheral_s() : owner(NULL)
+{
 
 }
 
@@ -80,7 +81,8 @@ SPI::~SPI()
     unlock();
 }
 
-struct SPI::spi_peripheral_s *SPI::_lookup(SPIName name, bool or_last) {
+struct SPI::spi_peripheral_s *SPI::_lookup(SPIName name, bool or_last)
+{
     struct SPI::spi_peripheral_s *result = NULL;
     core_util_critical_section_enter();
     for (uint32_t idx = 0; idx < DEVICE_SPI_COUNT; idx++) {
@@ -156,7 +158,7 @@ int SPI::write(int value)
     lock();
     _acquire();
     uint32_t ret = 0;
-    spi_transfer(&_peripheral->spi, &value, (_bits+7)/8, &ret, (_bits+7)/8, NULL);
+    spi_transfer(&_peripheral->spi, &value, 1, &ret, 1, NULL);
     unlock();
     return ret;
 }
